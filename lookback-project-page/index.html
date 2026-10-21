@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LookBack: Where and How to Score LVLM Responses via Visual Reference Usage. Training-free vision-aware Best-of-N response scoring. Findings of EMNLP 2026.">
+  <meta name="keywords" content="LookBack, LVLM, best-of-N, visual grounding, language models, vision-language, EMNLP 2026">
+  <meta name="citation_title" content="LookBack: Where and How to Score LVLM Responses via Visual Reference Usage">
+  <meta name="citation_author" content="Cho, Beomsik">
+  <meta name="citation_author" content="Kim, Jinhyeong">
+  <meta name="citation_author" content="Lee, Dongseok">
+  <meta name="citation_author" content="Kim, Jaehyung">
+  <meta name="citation_arxiv_id" content="2608.11847">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2608.11847">
+  <meta property="og:title" content="LookBack: Where and How to Score LVLM Responses via Visual Reference Usage">
+  <meta property="og:description" content="How can confidence-based scoring look back at the image? Training-free Best-of-N selection with visual reference usage.">
+  <meta property="og:image" content="static/images/teaser-figure.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>LookBack: Where and How to Score LVLM Responses via Visual Reference Usage</title>
+  <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <!-- Original ai4co/template CSS is hosted from the project's own GitHub Pages.
+       The bootstrap script rewrites these to the exact original LOCAL files after git clone.
+       The fallback is only to keep this preview readable when offline. -->
+  <link rel="stylesheet" href="static/css/bulma.min.css" data-ai4co="bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css" data-ai4co="index.css">
+  <link rel="stylesheet" href="static/css/code.css" data-ai4co="code.css">
+  <link rel="stylesheet" href="static/css/lookback-content.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <script defer src="static/js/lookback.js"></script>
+</head>
+<body>
+  <!-- The same hero / Bulma class hierarchy as the AI4CO project-page template. -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title"><span class="project-name">LookBack:</span> Where and How to Score LVLM Responses via Visual Reference Usage</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Beomsik Cho<sup>*</sup>,</span>
+              <span class="author-block">Jinhyeong Kim<sup>*</sup>,</span>
+              <span class="author-block">Dongseok Lee,</span>
+              <span class="author-block">Jaehyung Kim</span>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Yonsei University<br><strong>Findings of EMNLP 2026</strong></span>
+              <span class="eql-cntrb"><small><br><sup>*</sup> Equal contribution</small></span>
+            </div>
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block"><a href="static/pdfs/lookback-paper.pdf" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark"><span class="icon">▤</span><span>Paper</span></a></span>
+                <span class="link-block"><a href="https://github.com/bscho333/LookBack" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark"><span class="icon">⌘</span><span>Code</span></a></span>
+                <span class="link-block"><a href="https://arxiv.org/abs/2608.11847" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark"><span class="icon">↗</span><span>arXiv</span></a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The original template's teaser block, replacing its example video with the paper's overview Figure 1. -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <figure class="image">
+          <img src="static/images/teaser-figure.png" alt="Figure 1: Overview of LookBack. The model scores candidate responses using token confidence and visual reference usage, selecting a more visually grounded response." width="1155" height="528">
+        </figure>
+        <h2 class="subtitle has-text-centered teaser-caption">
+          <strong>TL;DR:</strong> Confidence-based scoring largely captures textual plausibility. <strong>LookBack</strong> calibrates token confidence with how strongly each token looks back at the image, then prioritizes visually relevant tokens when ranking responses.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- Original template: paper abstract, with its is-light background. -->
+  <section class="section hero is-light" id="abstract">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>Large Vision-Language Models (LVLMs) integrate visual perception with language generation, enabling responses that span image understanding and complex reasoning. However, LVLMs do not just inherit the text-level hallucinations; they also hallucinate against the image, producing fluent responses ungrounded in what they see. This makes LVLM response scoring inherently harder, and our diagnostics show that existing confidence-based metrics adopted from LLMs are insufficient for LVLMs. Specifically, removing the input image barely changes confidence-based selection, suggesting that output-space confidence primarily captures textual plausibility rather than agreement with the image. To address this gap, we propose <strong>LookBack</strong>, a training-free LVLM response scoring method that augments token likelihood with visual lookback score, a lightweight measure of how strongly each response token refers to image tokens. Across four benchmarks and three models, LookBack consistently improves Best-of-N selection over existing baselines with negligible additional overhead.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The paper/poster's RQ1, laid out in normal academic figure + text format. -->
+  <section class="section" id="motivation">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-3 has-text-centered">Is Output-Space Confidence Image-Sensitive?</h2>
+      <p>We test whether <em>Self-Certainty</em> (SC) actually depends on the input image. Its score distributions remain nearly unchanged when the image is removed, and the top-1 selection stays the same for 36–64% of the candidates (with a 4% random baseline at N = 25). Visual lookback, in contrast, favors visually referential words rather than primarily grammatical tokens.</p>
+      <div class="columns is-centered diagnosis-figures">
+        <div class="column is-half has-text-centered">
+          <figure class="research-figure"><div class="figure-image"><img src="static/images/confidence-distribution.webp" width="743" height="753" loading="lazy" alt="Figure 2: SC score distributions with and without image conditioning nearly overlap."></div><figcaption>Figure 2. Self-Certainty is barely affected when the input image is removed.</figcaption></figure>
+        </div>
+        <div class="column is-half has-text-centered">
+          <figure class="research-figure"><div class="figure-image"><img src="static/images/diagnosis-bars.webp" width="788" height="494" loading="lazy" alt="Figure 3: Agreement ratio for image-conditioned versus image-removed SC, compared with visual lookback."></div><figcaption>Figure 3. Removing the image often leaves the selected candidate unchanged.</figcaption></figure>
+        </div>
+      </div>
+      <figure class="research-figure token-complementarity">
+        <div class="wide-figure-scroll" role="region" aria-label="Figure 4: Four-panel comparison of visual reference usage and Self-Certainty" tabindex="0">
+          <img src="static/images/token-complementarity.png" width="1544" height="404" loading="lazy" alt="Four panels compare LLaVA and QwenVL on VQAv2 and CHAIR. Visual reference usage (blue) is higher for visual words, while Self-Certainty (orange) is higher for textual words.">
+        </div>
+        <figcaption>Figure 4. Visual reference usage and Self-Certainty capture complementary token-level signals across two models and two benchmarks.<span class="figure-scroll-hint">Scroll horizontally to see all four panels.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section hero is-light" id="method">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-3 has-text-centered">LookBack: Confidence Meets Visual Reference</h2>
+      <p>For each generated token, we calculate its <strong>visual lookback score</strong> \(A_t\): the fraction of the model's attention directed toward image tokens. LookBack then combines language likelihood with this model-intrinsic visual signal, in two steps:</p>
+      <div class="columns is-centered method-steps">
+        <div class="column is-half method-step">
+          <h3 class="title is-5">1. Lookback-calibrated token score</h3>
+          <div class="equation">
+            \[u_t = \log p_t + \alpha \log A_t\]
+          </div>
+          <p class="method-caption">Calibrate each token's log probability with its visual reference usage. A linguistically confident token is penalized if it weakly references the image.</p>
+        </div>
+        <div class="column is-half method-step">
+          <h3 class="title is-5">2. Visual relevance weighting</h3>
+          <div class="equation">
+            \[q_\lambda(t) = \frac{A_t^\lambda}{\sum_{j=1}^{T} A_j^\lambda}\]
+          </div>
+          <p class="method-caption">Visually informative positions receive more weight. These weights solve an entropy-regularized relevance maximization objective (Proposition 1).</p>
+        </div>
+      </div>
+      <p class="method-notation">Here, \(p_t\) is the generated token's probability and \(T\) is the response length. \(\alpha\) controls calibration strength; \(\lambda\) controls how strongly the weights favor visually relevant tokens.</p>
+      <h3 class="title is-4 has-text-centered">Final Response Score</h3>
+      <figure class="equation-main">
+        <div class="equation">
+        \[
+        S(y \mid x,v)
+        =
+        \frac{
+          \sum_{t=1}^{T}
+          A_t^\lambda
+          \left(\log p_t+\alpha\log A_t\right)
+        }{
+          \sum_{t=1}^{T} A_t^\lambda
+        }
+        \]
+        </div>
+        <figcaption>LookBack scores a response by averaging calibrated token scores, weighted by visual relevance.</figcaption>
+      </figure>
+      <p>LookBack is training-free and requires neither an additional reward model nor an extra forward pass for scoring.</p>
+    </div>
+  </section>
+
+  <section class="section" id="results">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-3 has-text-centered">Does LookBack Select Better Responses?</h2>
+      <p>We evaluate Best-of-N selection across <strong>VQAv2, CHAIR, HallusionBench, and AMBER</strong>, using <strong>LLaVA-1.5-7B, Qwen2.5-VL-7B, and InternVL3-8B</strong> with N = 5 and 25. LookBack achieves the highest model-wise average for all three LVLMs.</p>
+      <div class="table-container">
+        <table class="table is-fullwidth is-striped result-summary">
+          <thead><tr><th>LVLM</th><th>Strongest baseline</th><th>LookBack</th><th>Gain</th></tr></thead>
+          <tbody>
+            <tr><td>LLaVA-1.5-7B</td><td>SC · 62.36</td><td><strong>63.67</strong></td><td>+1.31</td></tr>
+            <tr><td>Qwen2.5-VL-7B</td><td>VAUQ · 68.17</td><td><strong>69.91</strong></td><td>+1.74</td></tr>
+            <tr><td>InternVL3-8B</td><td>USC · 71.58</td><td><strong>72.27</strong></td><td>+0.69</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure class="research-figure paper-table"><img src="static/images/main-results-table.png" width="2126" height="994" loading="lazy" alt="Table 1: Complete Best-of-N performance with N=5 and N=25, on four benchmarks and three LVLMs."><figcaption>Table 1 (paper). Complete results across benchmarks and candidate budgets (higher is better).</figcaption></figure>
+      <div class="columns is-centered">
+        <div class="column is-half has-text-centered"><figure class="research-figure"><img src="static/images/scaling-figure.webp" loading="lazy" alt="Figure 5: LookBack achieves favorable Best-of-N accuracy as the candidate pool grows."><figcaption>Figure 5. The performance margin persists as the number of candidates increases.</figcaption></figure></div>
+        <div class="column is-half has-text-centered"><figure class="research-figure"><img src="static/images/ablation-figure.webp" loading="lazy" alt="Figure 6: Token-level calibration and visual relevance weighting ablation."><figcaption>Figure 6. Token calibration and visual weighting are complementary.</figcaption></figure></div>
+      </div>
+      <p>Using one global pair of hyperparameters (α, λ) = (0.25, 1.25) across all three models still gives the highest model-wise average. LookBack also uses internal statistics instead of an external verifier or an additional scoring pass.</p>
+    </div>
+  </section>
+
+  <section class="section hero is-light" id="bibtex">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-3">BibTeX</h2>
+      <p class="citation-note">Provisional arXiv citation. Replace with the official ACL Anthology BibTeX once the proceedings entry is available.</p>
+      <div class="code-container">
+        <pre><code id="bibtex-code" class="code-content language-text">@misc{cho2026lookback,
+  title={LookBack: Where and How to Score LVLM Responses via Visual Reference Usage},
+  author={Beomsik Cho and Jinhyeong Kim and Dongseok Lee and Jaehyung Kim},
+  year={2026},
+  eprint={2608.11847},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2608.11847}
+}</code></pre>
+        <button class="copy-button" id="copy-bibtex" type="button" aria-label="Copy BibTeX to clipboard">Copy to clipboard</button>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container is-max-desktop">
+      <div class="content has-text-centered">
+        <p>This page was built using the <a href="https://github.com/ai4co/research-project-page-template" target="_blank" rel="noopener">Research Project Page Template</a>, based on the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a> and the <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies project page</a>.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

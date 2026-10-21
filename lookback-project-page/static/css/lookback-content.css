@@ -1,0 +1,133 @@
+/* Palette sampled from the EMNLP 2026 poster. */
+:root {
+  --lookback-primary: #0b3d74;
+  --lookback-header: #d4dff3;
+  --lookback-tint: #edf2fa;
+  --lookback-panel: #e6eefa;
+  --lookback-muted: #526174;
+}
+
+.publication-title.title { color: #171b22; text-wrap: balance; }
+.project-name, .content .title, .section .title, .hero.is-light .title {
+  color: var(--lookback-primary);
+}
+body > .hero:first-child { background-color: var(--lookback-header); }
+.hero.is-light { background-color: var(--lookback-tint); }
+.section > .container { width: 100%; min-width: 0; }
+.teaser .hero-body { padding-top: 2rem; }
+.teaser-caption { margin-top: 1.25rem; font-size: 1.1rem; line-height: 1.6; }
+.teaser-caption strong, #abstract strong { color: var(--lookback-primary); }
+.publication-links .button.is-dark {
+  background-color: var(--lookback-primary);
+  border-color: var(--lookback-primary);
+  color: #fff;
+}
+.publication-links .button.is-dark:hover,
+.publication-links .button.is-dark:focus-visible {
+  background-color: #fff;
+  color: var(--lookback-primary);
+}
+a { color: var(--lookback-primary); }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--lookback-primary);
+  outline-offset: 3px;
+}
+
+.content .research-figure { text-align: center; margin: 1.25rem 0 1.7rem; }
+.research-figure img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+.content .research-figure figcaption, .content .equation-main figcaption {
+  color: var(--lookback-muted);
+  font-size: .875rem;
+  line-height: 1.55;
+  font-style: normal;
+  margin-top: .75rem;
+}
+/* Equal image stages align image centers and caption baselines without cropping. */
+.diagnosis-figures .figure-image {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.diagnosis-figures .figure-image img { max-height: 100%; width: auto; }
+.diagnosis-figures figcaption { text-align: left; }
+.wide-figure-scroll { overflow-x: auto; }
+.wide-figure-scroll:focus-visible {
+  outline: 2px solid var(--lookback-primary);
+  outline-offset: 4px;
+}
+.token-complementarity img { width: 100%; }
+.figure-scroll-hint { display: none; }
+
+.method-steps { margin-top: 1.5rem; }
+.method-step { min-width: 0; }
+.method-step .title { line-height: 1.4; margin-bottom: .75rem; }
+.equation {
+  text-align: center;
+  overflow-x: auto;
+  padding: .75rem .25rem;
+  color: #172c49;
+}
+.equation mjx-container[display="true"] { margin: .5rem 0 !important; }
+.method-step .equation {
+  min-height: 7.5rem;
+  display: grid;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--lookback-header);
+  border-radius: .5rem;
+  margin-bottom: 1rem;
+}
+.method-caption, .method-notation {
+  font-size: .9375rem;
+  line-height: 1.65;
+  color: var(--lookback-muted);
+}
+.content .method-notation { margin: .25rem 0 2rem; }
+.content .equation-main {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem;
+  border-left: 4px solid var(--lookback-primary);
+  border-radius: .5rem;
+  background: var(--lookback-panel);
+}
+.content .equation-main figcaption { margin-top: .5rem; }
+.content .paper-table { margin-top: 1.8rem; margin-bottom: 2.2rem; }
+.result-summary { margin: 1rem 0 1.2rem; }
+.result-summary th:nth-child(3), .result-summary td:nth-child(3) {
+  background-color: var(--lookback-panel);
+  color: var(--lookback-primary);
+}
+.result-summary td:nth-child(3) strong { color: inherit; }
+.citation-note { font-size: .92rem; }
+/* The template's copy button expects an icon; this page uses a text label. */
+.code-container { padding: 3rem 1rem 1rem; }
+.code-content { color: #25354a; }
+.copy-button {
+  width: auto;
+  height: auto;
+  padding: .4rem .65rem;
+  background: #fff;
+  color: var(--lookback-primary);
+  border: 1px solid var(--lookback-header);
+}
+.copy-button:hover { background: var(--lookback-panel); }
+
+@media (min-width: 769px) {
+  .method-step { display: flex; flex-direction: column; }
+  .method-step .title { min-height: 3.5rem; }
+}
+@media (max-width: 768px) {
+  .publication-title.title { font-size: 2.1rem; }
+  .content .research-figure { margin: 1rem 0 1.5rem; }
+  .diagnosis-figures .figure-image { aspect-ratio: auto; }
+  .diagnosis-figures .figure-image img { width: 100%; max-height: none; }
+  .token-complementarity img { min-width: 760px; }
+  .figure-scroll-hint { display: block; margin-top: .35rem; }
+  .content .equation-main { padding: .75rem .5rem; }
+  .equation-main .equation { font-size: .85rem; }
+  .content.has-text-justified { text-align: left !important; }
+}
+@media (max-width: 360px) {
+  .equation-main .equation { font-size: .72rem; }
+}
