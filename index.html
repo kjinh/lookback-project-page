@@ -92,7 +92,7 @@
   <section class="section" id="setup">
     <div class="container is-max-desktop content">
       <h2 class="title is-3 has-text-centered">Preliminary: Best-of-N</h2>
-      <p>Under stochastic decoding, LVLMs can produce responses of varying quality for the same input. Best-of-N seeks better responses by generating N candidates, ranking them with a scoring function, and selecting the highest-scoring one. We focus on self-scoring, which uses the LVLM’s own internal signals to evaluate candidate responses.</p>
+      <p>Under stochastic decoding, LVLMs can produce responses of varying quality for the same input. <strong>Best-of-N</strong> seeks better responses by generating N candidates, ranking them with a scoring function, and selecting the highest-scoring one. We focus on self-scoring, which uses the LVLM’s own internal signals to evaluate candidate responses.</p>
       <p>In our motivation experiments, we sample 25 candidates for each image–question pair and keep them fixed for scoring and selection. We score each response under teacher forcing: at each position, the model receives the candidate’s previously generated tokens and recomputes the next-token distribution.</p>
       <figure class="research-figure setup-figure">
         <div class="wide-figure-scroll" role="region" aria-label="Experimental setup: candidate generation followed by teacher-forced scoring" tabindex="0">
