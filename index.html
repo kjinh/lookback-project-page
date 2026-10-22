@@ -89,6 +89,20 @@
     </div>
   </section>
 
+  <section class="section" id="setup">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-3 has-text-centered">Experimental Setup: Generate, Then Score</h2>
+      <p>We first sample <strong>25 candidate responses</strong> for each image–question pair, then keep these responses fixed for Best-of-N selection. During post-generation scoring, we use <strong>teacher forcing</strong>: at each position, the model receives the candidate's previously generated tokens and computes the next-token distribution. The supplied tokens come from the sampled response itself. This is an inference-only evaluation, with no parameter updates or resampling.</p>
+      <figure class="research-figure setup-figure">
+        <div class="wide-figure-scroll" role="region" aria-label="Experimental setup: candidate generation followed by teacher-forced scoring" tabindex="0">
+          <img src="static/images/scoring-setup.png" width="2994" height="582" loading="lazy" alt="An LVLM samples 25 candidate responses to an image and question. The candidate pool is then fixed, and each response is fed back to the LVLM under teacher forcing to compute a score for Best-of-N selection.">
+        </div>
+        <figcaption>Experimental setup. Generation produces a shared candidate pool; teacher-forced scoring evaluates these completed responses and ranks them for selection. In the image-removal diagnostic, only the image supplied during scoring changes.<span class="figure-scroll-hint">Scroll horizontally to see both stages.</span></figcaption>
+      </figure>
+      <p>The motivation study uses <strong>1,000 randomly sampled instances per benchmark</strong> from VQAv2 and CHAIR, with LLaVA-1.5-7B and Qwen2.5-VL-7B. We score the same image-conditioned responses using Self-Certainty, once with the original image and once without it. Holding the question and candidate text fixed isolates the effect of visual input on scoring and selection (paper, Section 3).</p>
+    </div>
+  </section>
+
   <!-- The paper/poster's RQ1, laid out in normal academic figure + text format. -->
   <section class="section" id="motivation">
     <div class="container is-max-desktop content">
@@ -149,7 +163,7 @@
         </div>
         <figcaption>LookBack scores a response by averaging calibrated token scores, weighted by visual relevance.</figcaption>
       </figure>
-      <p>LookBack is training-free and requires neither an additional reward model nor an extra forward pass for scoring.</p>
+      <p>LookBack is training-free and requires no additional reward model. Token probabilities and visual attention weights come from the same LVLM forward pass, so computing the visual lookback signal requires no separate model pass.</p>
     </div>
   </section>
 

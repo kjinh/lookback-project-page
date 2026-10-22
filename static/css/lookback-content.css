@@ -56,8 +56,10 @@ a:focus-visible, button:focus-visible {
   outline: 2px solid var(--lookback-primary);
   outline-offset: 4px;
 }
-.token-complementarity img { width: 100%; }
+.token-complementarity img, .setup-figure img { width: 100%; }
 .figure-scroll-hint { display: none; }
+#setup { padding-bottom: 1.5rem; }
+#setup + #motivation { padding-top: 1.5rem; }
 
 .method-steps { margin-top: 1.5rem; }
 .method-step { min-width: 0; }
@@ -123,6 +125,7 @@ a:focus-visible, button:focus-visible {
   .diagnosis-figures .figure-image { aspect-ratio: auto; }
   .diagnosis-figures .figure-image img { width: 100%; max-height: none; }
   .token-complementarity img { min-width: 760px; }
+  .setup-figure img { min-width: 1100px; }
   .figure-scroll-hint { display: block; margin-top: .35rem; }
   .content .equation-main { padding: .75rem .5rem; }
   .equation-main .equation { font-size: .85rem; }
