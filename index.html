@@ -101,7 +101,7 @@
         <figcaption>Experimental setup. Generation produces a shared candidate pool; teacher-forced scoring evaluates these completed responses and ranks them for selection.</figcaption>
       </figure>
       <!-- Self-Certainty: https://github.com/backprop07/Self-Certainty (KL from uniform to model distribution). -->
-      <p>We score the same image-conditioned responses using Self-Certainty, an output-space confidence measure defined as \(\mathrm{SC} = \frac{1}{T}\sum_{t=1}^{T} D_{\mathrm{KL}}(U \| P_t)\), where \(T\) is the response length, \(U\) is the uniform distribution over the vocabulary, and \(P_t\) is the model's next-token distribution at position \(t\) under teacher forcing. We compute this score once with the original image and once without it. Holding the question and candidate text fixed isolates the effect of visual input on scoring and selection (paper, Section 3).</p>
+      <p>We score the same image-conditioned responses using <strong>Self-Certainty, an output-space confidence measure</strong> defined as \(\mathrm{SC} = \frac{1}{T}\sum_{t=1}^{T} D_{\mathrm{KL}}(U \| P_t)\), where \(T\) is the response length, \(U\) is the uniform distribution over the vocabulary, and \(P_t\) is the model's next-token distribution at position \(t\) under teacher forcing. We compute this score once with the original image and once without it. Holding the question and candidate text fixed isolates the effect of visual input on scoring and selection (paper, Section 3).</p>
     </div>
   </section>
 
