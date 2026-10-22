@@ -49,10 +49,10 @@
               <span class="eql-cntrb"><small><br><sup>*</sup> Equal contribution</small></span>
             </div>
             <div class="column has-text-centered">
+              <!-- Brand SVGs from Simple Icons (CC0); inherit button text color. -->
               <div class="publication-links">
-                <span class="link-block"><a href="static/pdfs/lookback-paper.pdf" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark"><span class="icon">▤</span><span>Paper</span></a></span>
-                <span class="link-block"><a href="https://github.com/bscho333/LookBack" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark"><span class="icon">⌘</span><span>Code</span></a></span>
-                <span class="link-block"><a href="https://arxiv.org/abs/2608.11847" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark"><span class="icon">↗</span><span>arXiv</span></a></span>
+                <span class="link-block"><a href="https://github.com/bscho333/LookBack" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark"><span class="icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" focusable="false"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span><span>Code</span></a></span>
+                <span class="link-block"><a href="https://arxiv.org/abs/2608.11847" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark"><span class="icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" focusable="false"><path d="M3.8423 0a1.0037 1.0037 0 0 0-.922.6078c-.1536.3687-.0438.6275.2938 1.1113l6.9185 8.3597-1.0223 1.1058a1.0393 1.0393 0 0 0 .003 1.4229l1.2292 1.3135-5.4391 6.4444c-.2803.299-.4538.823-.2971 1.1986a1.0253 1.0253 0 0 0 .9585.635.9133.9133 0 0 0 .6891-.3405l5.783-6.126 7.4902 8.0051a.8527.8527 0 0 0 .6835.2597.9575.9575 0 0 0 .8777-.6138c.1577-.377-.017-.7502-.306-1.1407l-7.0518-8.3418 1.0632-1.13a.9626.9626 0 0 0 .0089-1.3165L4.6336.4639s-.3733-.4535-.768-.463zm0 .272h.0166c.2179.0052.4874.2715.5644.3639l.005.006.0052.0055 10.169 10.9905a.6915.6915 0 0 1-.0072.945l-1.0666 1.133-1.4982-1.7724-8.5994-10.39c-.3286-.472-.352-.6183-.2592-.841a.7307.7307 0 0 1 .6704-.4401Zm14.341 1.5701a.877.877 0 0 0-.6554.2418l-5.6962 6.1584 1.6944 1.8319 5.3089-6.5138c.3251-.4335.479-.6603.3247-1.0292a1.1205 1.1205 0 0 0-.9763-.689zm-7.6557 12.2823 1.3186 1.4135-5.7864 6.1295a.6494.6494 0 0 1-.4959.26.7516.7516 0 0 1-.706-.4669c-.1119-.2682.0359-.6864.2442-.9083l.0051-.0055.0047-.0055z"/></svg></span><span>arXiv</span></a></span>
               </div>
             </div>
           </div>
@@ -91,15 +91,15 @@
 
   <section class="section" id="setup">
     <div class="container is-max-desktop content">
-      <h2 class="title is-3 has-text-centered">Experimental Setup: Generate, Then Score</h2>
-      <p>We first sample <strong>25 candidate responses</strong> for each image–question pair, then keep these responses fixed for Best-of-N selection. During post-generation scoring, we use <strong>teacher forcing</strong>: at each position, the model receives the candidate's previously generated tokens and computes the next-token distribution. The supplied tokens come from the sampled response itself. This is an inference-only evaluation, with no parameter updates or resampling.</p>
+      <h2 class="title is-3 has-text-centered">Experimental Setup</h2>
+      <p>We first sample 25 candidate responses for each image–question pair, then keep these responses fixed for Best-of-N selection. During post-generation scoring, we use teacher forcing: at each position, the model receives the candidate's previously generated tokens and recomputes the next-token distribution.</p>
       <figure class="research-figure setup-figure">
         <div class="wide-figure-scroll" role="region" aria-label="Experimental setup: candidate generation followed by teacher-forced scoring" tabindex="0">
           <img src="static/images/scoring-setup.png" width="2994" height="582" loading="lazy" alt="An LVLM samples 25 candidate responses to an image and question. The candidate pool is then fixed, and each response is fed back to the LVLM under teacher forcing to compute a score for Best-of-N selection.">
         </div>
-        <figcaption>Experimental setup. Generation produces a shared candidate pool; teacher-forced scoring evaluates these completed responses and ranks them for selection. In the image-removal diagnostic, only the image supplied during scoring changes.<span class="figure-scroll-hint">Scroll horizontally to see both stages.</span></figcaption>
+        <figcaption>Experimental setup. Generation produces a shared candidate pool; teacher-forced scoring evaluates these completed responses and ranks them for selection.</figcaption>
       </figure>
-      <p>The motivation study uses <strong>1,000 randomly sampled instances per benchmark</strong> from VQAv2 and CHAIR, with LLaVA-1.5-7B and Qwen2.5-VL-7B. We score the same image-conditioned responses using Self-Certainty, once with the original image and once without it. Holding the question and candidate text fixed isolates the effect of visual input on scoring and selection (paper, Section 3).</p>
+      <p>We score the same image-conditioned responses using Self-Certainty, once with the original image and once without it. Holding the question and candidate text fixed isolates the effect of visual input on scoring and selection (paper, Section 3).</p>
     </div>
   </section>
 
